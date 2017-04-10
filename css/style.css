@@ -50,13 +50,17 @@ a:hover, a:focus {
 #subtitle {
 	color: #AAA;
 }
+#download-container {
+	margin-top: 30px;
+}
 #download {
+	display: block;
+	text-decoration: none;
 	padding: 10px 20px;
 	background: #333;
 	border-radius: 5px;
 	color: #FFE24C;
 	cursor: pointer;
-	margin-top: 30px;
 	font-size: .8em;
 	font-weight: 600;
 	transition: all .2s;
