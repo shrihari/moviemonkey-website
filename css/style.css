@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
 
+@media (min-width: 0px) {
+  body { font-size: 10px; }
+}
+@media (min-width: 500px) {
+  body { font-size: 12px; }
+}
+@media (min-width: 900px) {
+  body { font-size: 14px; }
+}
+@media (min-width: 1200px) {
+  body { font-size: 16px; }
+}
+@media (min-width: 1600px) {
+  body { font-size: 20px; }
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 textarea, input { outline: none; }
 html {
@@ -45,9 +61,11 @@ a:hover, a:focus {
 	padding-left: 8%;
 }
 #title {
+	text-align: center;
 	font-size: 1.8em;
 }
 #subtitle {
+	text-align: center;
 	color: #AAA;
 }
 #download-container {
