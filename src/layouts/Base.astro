@@ -1,0 +1,61 @@
+---
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../site';
+import ogSource from '../assets/shots/home-dark.webp';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = `${site.name}: your movies, beautifully organized`, description = site.description } = Astro.props;
+const og = await getImage({ src: ogSource, width: 1200, height: 750, format: 'jpeg', quality: 82 });
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+const ogUrl = new URL(og.src, site.url).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/app-icon.png" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfaf8" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121110" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="750" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@shrihari" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: site.name,
+      operatingSystem: 'macOS',
+      applicationCategory: 'MultimediaApplication',
+      description,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      url: site.url,
+    })} />
+  </head>
+  <body class="min-h-dvh bg-bg text-ink antialiased">
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

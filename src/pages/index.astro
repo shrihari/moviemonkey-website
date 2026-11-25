@@ -1,0 +1,328 @@
+---
+import Base from '../layouts/Base.astro';
+import Shot from '../components/Shot.astro';
+import FilenameDemo from '../components/FilenameDemo.astro';
+import GithubMark from '../components/GithubMark.astro';
+import { site } from '../site';
+import monkey from '../assets/monkey.svg';
+import {
+  ArrowDownToLine,
+  Bookmark,
+  CloudOff,
+  Eye,
+  FolderDown,
+  HardDrive,
+  Moon,
+  Play,
+  ShieldCheck,
+  Sparkles,
+  Unplug,
+  Wand,
+  Feather,
+} from '@lucide/astro';
+
+import homeLight from '../assets/shots/home-light.webp';
+import homeDark from '../assets/shots/home-dark.webp';
+import duneLight from '../assets/shots/dune-light.webp';
+import duneDark from '../assets/shots/dune-dark.webp';
+import showLight from '../assets/shots/show-light.webp';
+import showDark from '../assets/shots/show-dark.webp';
+import searchLight from '../assets/shots/search-light.webp';
+import searchDark from '../assets/shots/search-dark.webp';
+import moviesLight from '../assets/shots/movies-light.webp';
+import moviesDark from '../assets/shots/movies-dark.webp';
+
+const small = [
+  { icon: FolderDown, title: 'Watches your folders', text: 'New downloads show up on their own. Deleted files quietly disappear.' },
+  { icon: Unplug, title: 'Unplug-friendly', text: 'External drive disconnected? Your library stays put, marked offline.' },
+  { icon: CloudOff, title: 'Works offline', text: 'Artwork is cached on disk after the first look.' },
+  { icon: Wand, title: 'Asks when unsure', text: 'Anything it can’t identify confidently lands in a review queue. One search to fix.' },
+  { icon: Bookmark, title: 'Watchlist & favorites', text: 'Plus your own star ratings, per-episode watched state and “Continue watching”.' },
+  { icon: Moon, title: 'Light & dark', text: 'Follows your Mac, with a native translucent sidebar.' },
+  { icon: ShieldCheck, title: 'Hands off your files', text: 'Never renames, moves or deletes anything. Ever.' },
+  { icon: Eye, title: 'No accounts, no tracking', text: 'Nothing to sign up for. No analytics in the app.' },
+  { icon: Feather, title: 'Tiny and fast', text: 'Built with Rust and Tauri. An ~8 MB download that opens instantly.' },
+];
+
+const faqs = [
+  {
+    q: 'Is it free?',
+    a: 'Yes. Movie Monkey is free and open source. There’s no subscription, no account and nothing to unlock.',
+  },
+  {
+    q: 'Does it play videos?',
+    a: 'It hands files to the player you already use, like IINA, VLC, QuickTime or Infuse, and keeps track of what you’ve watched.',
+  },
+  {
+    q: 'Where does the information come from?',
+    a: 'Free, open sources that need no API key: IMDb’s title search, Cinemeta and TVMaze, with artwork from TMDB’s image CDN. Only titles are looked up; your files never leave your disk.',
+  },
+  {
+    q: 'What if it gets something wrong?',
+    a: 'Every title has a “Fix match” action: search, click the right one, done. Files it isn’t confident about are never guessed; they wait in Needs review.',
+  },
+  {
+    q: 'Will it rename or reorganize my files?',
+    a: 'No. Movie Monkey only reads your folders. Your files stay exactly where and how you keep them.',
+  },
+  {
+    q: 'Windows or Linux?',
+    a: 'Mac comes first. The app is built on Tauri, which supports Windows and Linux too, so builds for those are planned.',
+  },
+  {
+    q: 'What happened to the old Movie Monkey?',
+    a: 'Version 1 was an Electron app from 2017. Version 2 is a ground-up rewrite with a new engine, a new design and much better identification.',
+  },
+  {
+    q: 'When can I download it?',
+    a: 'Soon. Watch the GitHub repository for releases to hear the moment it ships.',
+  },
+];
+---
+
+<Base>
+  <!-- ================================================================ hero -->
+  <section class="mx-auto max-w-[1180px] px-6 pt-14 sm:pt-20">
+    <a
+      href="#get"
+      class="inline-flex items-center gap-2 rounded-full bg-elev py-1 pr-3 pl-1.5 text-[13px] text-ink-2 shadow-[0_0_0_0.5px_var(--line-strong)] transition-colors hover:text-ink"
+    >
+      <span class="rounded-full bg-accent px-2 py-0.5 text-[11px] font-semibold text-accent-ink">New</span>
+      Movie Monkey 2, rebuilt from scratch
+    </a>
+    <h1 class="mt-7 max-w-[900px] font-display text-[38px] leading-[1.05] font-semibold tracking-[-0.035em] text-balance sm:text-[64px]">
+      Your movies, beautifully organized.{' '}
+      <span class="text-ink-3">Drop in a folder, get back posters, artwork and episode guides.</span>
+    </h1>
+    <div class="mt-9 flex flex-wrap items-center gap-3" id="get">
+      {
+        site.downloadUrl ? (
+          <a href={site.downloadUrl} class="inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[15px] font-medium text-bg transition-transform active:scale-[0.97]">
+            <ArrowDownToLine size={18} /> Download for Mac
+          </a>
+        ) : (
+          <span class="inline-flex h-12 cursor-default items-center gap-2.5 rounded-full bg-ink px-6 text-[15px] font-medium text-bg">
+            <span class="size-2 rounded-full bg-accent" style="animation: pulse-dot 2s ease-in-out infinite" />
+            Coming soon for Mac
+          </span>
+        )
+      }
+      <a
+        href={site.downloadUrl ? site.github : site.releases}
+        class="inline-flex h-12 items-center gap-2 rounded-full bg-ink/[0.06] px-6 text-[15px] font-medium text-ink transition-[background,transform] hover:bg-ink/10 active:scale-[0.97]"
+      >
+        <GithubMark size={17} />
+        {site.downloadUrl ? 'View on GitHub' : 'Get notified on GitHub'}
+      </a>
+    </div>
+    <p class="mt-5 text-[13px] text-ink-3">Free and open source · No account · No API keys · Your files never leave your disk</p>
+  </section>
+
+  <!-- Stage with the app -->
+  <section class="mx-auto mt-14 max-w-[1240px] px-3 sm:px-6">
+    <div class="relative overflow-hidden rounded-[28px] bg-stage px-4 pt-8 pb-0 sm:px-12 sm:pt-14">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute -top-40 left-1/2 size-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_203_61/0.28),transparent)] dark:bg-[radial-gradient(closest-side,rgb(255_203_61/0.10),transparent)]"
+      >
+      </div>
+      <div class="window relative -mb-[3%] translate-y-0">
+        <Shot light={homeLight} dark={homeDark} alt="Movie Monkey's home screen: a featured show with artwork, and rows of recently added titles" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ how -->
+  <section id="how" class="mx-auto max-w-[1180px] px-6 pt-32">
+    <div class="max-w-[720px]">
+      <p class="text-[13px] font-semibold tracking-[0.12em] text-accent-strong uppercase">How it works</p>
+      <h2 class="mt-3 font-display text-[36px] leading-[1.08] font-semibold tracking-[-0.03em] text-balance sm:text-[44px]">
+        Messy file names in.{' '}<span class="text-ink-3">A clean library out.</span>
+      </h2>
+      <p class="mt-4 text-[17px] leading-relaxed text-ink-2">
+        Movie Monkey reads release names the way you would. It knows <em>Dune</em> (1984) from <em>Dune</em> (2021),
+        the British <em>Office</em> from the American one, and that a file called{' '}
+        <code class="font-mono text-[14px]">movie.mkv</code> inside{' '}
+        <code class="font-mono text-[14px]">Heat (1995)</code> is Michael Mann’s heist film.
+      </p>
+    </div>
+    <div class="reveal mt-10">
+      <FilenameDemo />
+    </div>
+    <div class="mt-6 grid gap-4 sm:grid-cols-3">
+      {
+        [
+          { n: '1', icon: FolderDown, t: 'Drop a folder', d: 'Any folder, nested as deep as you like. External drives too.' },
+          { n: '2', icon: Sparkles, t: 'It does the rest', d: 'Every movie and episode identified in seconds, with posters, logos and backdrops.' },
+          { n: '3', icon: Play, t: 'Press play', d: 'Opens in the player you already use. Watched state is remembered.' },
+        ].map((s) => (
+          <div class="reveal rounded-[20px] bg-stage p-6">
+            <div class="flex items-center gap-3">
+              <span class="flex size-9 items-center justify-center rounded-xl bg-accent/30 text-accent-strong">
+                <s.icon size={18} />
+              </span>
+              <span class="text-[12px] font-semibold text-ink-3">Step {s.n}</span>
+            </div>
+            <h3 class="mt-4 text-[17px] font-semibold tracking-[-0.01em]">{s.t}</h3>
+            <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-2">{s.d}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- =========================================================== features -->
+  <section id="features" class="mx-auto max-w-[1180px] px-6 pt-32">
+    <div class="max-w-[720px]">
+      <p class="text-[13px] font-semibold tracking-[0.12em] text-accent-strong uppercase">Features</p>
+      <h2 class="mt-3 font-display text-[36px] leading-[1.08] font-semibold tracking-[-0.03em] text-balance sm:text-[44px]">
+        Every title gets a cinematic page.{' '}
+        <span class="text-ink-3">Logo art, backdrops, ratings, cast and the details collectors care about.</span>
+      </h2>
+    </div>
+    <div class="reveal window mt-10">
+      <Shot light={duneLight} dark={duneDark} alt="A movie's detail page with backdrop, title logo, rating, file details with 4K and Dolby Vision badges, and cast" />
+    </div>
+    <div class="mt-5 grid gap-x-10 gap-y-3 text-[14.5px] leading-relaxed text-ink-2 sm:grid-cols-3">
+      <p><span class="font-semibold text-ink">4K, HDR, Dolby Vision.</span> Read straight from your file names, shown as badges.</p>
+      <p><span class="font-semibold text-ink">Editions and splits.</span> Director’s cuts, extended editions and CD1/CD2 files are grouped correctly.</p>
+      <p><span class="font-semibold text-ink">Trailer, IMDb, Finder.</span> One click away from every title.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1180px] px-6 pt-28">
+    <div class="grid items-end gap-6 lg:grid-cols-[1fr_1.1fr]">
+      <h2 class="font-display text-[32px] leading-[1.1] font-semibold tracking-[-0.03em] text-balance sm:text-[38px]">
+        Shows, episode by episode.
+      </h2>
+      <p class="text-[16px] leading-relaxed text-ink-2">
+        A full episode guide with stills and air dates. Mark episodes watched one at a time or a whole show at once, and
+        Movie Monkey picks up exactly where you left off.
+      </p>
+    </div>
+    <div class="reveal window mt-8">
+      <Shot light={showLight} dark={showDark} alt="A TV show's page with season tabs and an episode list with stills" />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1180px] px-6 pt-28">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div>
+        <h2 class="font-display text-[28px] leading-[1.12] font-semibold tracking-[-0.025em]">⌘K finds anything.</h2>
+        <p class="mt-2 text-[15.5px] leading-relaxed text-ink-2">Titles, actors, directors and genres, from anywhere in the app. Type “nolan”, get Nolan.</p>
+        <div class="reveal window mt-6">
+          <Shot
+            light={searchLight}
+            dark={searchDark}
+            alt="The command palette showing Christopher Nolan films from the library"
+            sizes="(min-width: 1024px) 560px, 94vw"
+            widths={[560, 840, 1120, 1680]}
+          />
+        </div>
+      </div>
+      <div>
+        <h2 class="font-display text-[28px] leading-[1.12] font-semibold tracking-[-0.025em]">Your whole shelf, at a glance.</h2>
+        <p class="mt-2 text-[15.5px] leading-relaxed text-ink-2">Sort, filter and resize posters. Right-click anything to mark it watched or show it in Finder.</p>
+        <div class="reveal window mt-6">
+          <Shot
+            light={moviesLight}
+            dark={moviesDark}
+            alt="A grid of movie posters with a floating toolbar for filters, sorting and poster size"
+            sizes="(min-width: 1024px) 560px, 94vw"
+            widths={[560, 840, 1120, 1680]}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================== bento -->
+  <section class="mx-auto max-w-[1180px] px-6 pt-32">
+    <h2 class="max-w-[720px] font-display text-[32px] leading-[1.1] font-semibold tracking-[-0.03em] text-balance sm:text-[38px]">
+      The little things, done right.
+    </h2>
+    <div class="mt-10 grid gap-px overflow-hidden rounded-[22px] bg-line shadow-[0_0_0_0.5px_var(--line-strong)] sm:grid-cols-2 lg:grid-cols-3">
+      {
+        small.map((f) => (
+          <div class="bg-bg p-7">
+            <f.icon size={20} class="text-accent-strong" />
+            <h3 class="mt-4 text-[15.5px] font-semibold tracking-[-0.01em]">{f.title}</h3>
+            <p class="mt-1.5 text-[14px] leading-relaxed text-ink-2">{f.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ============================================================ sources -->
+  <section class="mx-auto max-w-[1180px] px-6 pt-24">
+    <div class="flex flex-col gap-6 rounded-[22px] bg-stage px-7 py-8 sm:flex-row sm:items-center">
+      <div class="flex-1">
+        <h3 class="text-[17px] font-semibold tracking-[-0.01em]">Powered by free, open metadata</h3>
+        <p class="mt-1 text-[14.5px] text-ink-2">No API keys to paste, no accounts to create. If one source is down, the next one takes over.</p>
+      </div>
+      <ul class="flex flex-wrap gap-2 text-[13px] font-medium">
+        {['IMDb search', 'Cinemeta', 'TVMaze', 'TMDB artwork'].map((s) => (
+          <li class="rounded-full bg-elev px-3.5 py-1.5 shadow-[0_0_0_0.5px_var(--line-strong)]">{s}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================================================================ faq -->
+  <section id="faq" class="mx-auto max-w-[1180px] px-6 pt-32">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.6fr]">
+      <h2 class="font-display text-[32px] leading-[1.1] font-semibold tracking-[-0.03em] sm:text-[38px]">Questions</h2>
+      <div class="divide-y divide-line border-y border-line">
+        {
+          faqs.map((f) => (
+            <details class="group py-5">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-6 text-[16px] font-medium [&::-webkit-details-marker]:hidden">
+                {f.q}
+                <span class="relative size-4 shrink-0 text-ink-3 transition-transform duration-300 group-open:rotate-45">
+                  <span class="absolute top-1/2 left-0 h-[1.5px] w-4 -translate-y-1/2 rounded bg-current" />
+                  <span class="absolute top-0 left-1/2 h-4 w-[1.5px] -translate-x-1/2 rounded bg-current" />
+                </span>
+              </summary>
+              <p class="mt-3 max-w-[620px] text-[15px] leading-relaxed text-ink-2">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================== final CTA -->
+  <section class="mx-auto max-w-[1180px] px-6 pt-32 pb-28">
+    <div class="relative overflow-hidden rounded-[28px] bg-stage px-6 py-20 text-center">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute -bottom-48 left-1/2 size-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_203_61/0.3),transparent)] dark:bg-[radial-gradient(closest-side,rgb(255_203_61/0.12),transparent)]"
+      >
+      </div>
+      <img src={monkey.src} alt="" width="88" height="88" class="relative mx-auto size-[88px] drop-shadow-xl" style="animation: float 6s ease-in-out infinite" />
+      <h2 class="relative mt-8 font-display text-[34px] leading-[1.1] font-semibold tracking-[-0.03em] sm:text-[44px]">
+        {site.downloadUrl ? 'Give your movies a home.' : 'Coming soon to your Mac.'}
+      </h2>
+      <p class="relative mx-auto mt-3 max-w-[460px] text-[16px] text-ink-2">
+        {site.downloadUrl ? 'Free, open source, and ready in under a minute.' : 'Watch the repository on GitHub and you’ll hear the moment it ships.'}
+      </p>
+      <div class="relative mt-8 flex flex-wrap justify-center gap-3">
+        {
+          site.downloadUrl ? (
+            <a href={site.downloadUrl} class="inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[15px] font-medium text-bg">
+              <ArrowDownToLine size={18} /> Download for Mac
+            </a>
+          ) : (
+            <a href={site.releases} class="inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[15px] font-medium text-bg transition-transform active:scale-[0.97]">
+              <GithubMark size={17} /> Watch releases on GitHub
+            </a>
+          )
+        }
+      </div>
+      <p class="relative mt-5 text-[12.5px] text-ink-3">
+        <HardDrive size={13} class="mr-1 inline -translate-y-px" /> For macOS · Free and open source
+      </p>
+    </div>
+  </section>
+</Base>

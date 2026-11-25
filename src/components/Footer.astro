@@ -1,0 +1,25 @@
+---
+import monkey from '../assets/monkey.svg';
+import GithubMark from './GithubMark.astro';
+import { site } from '../site';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
+  <div class="mx-auto flex max-w-[1180px] flex-col gap-6 px-6 py-10 text-[13px] text-ink-2 sm:flex-row sm:items-center">
+    <div class="flex items-center gap-2.5">
+      <img src={monkey.src} alt="" width="22" height="22" class="size-[22px] opacity-90" />
+      <span class="font-medium text-ink">{site.name}</span>
+      <span class="text-ink-3">© {year}</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-2 sm:ml-auto">
+      <a href={site.github} class="inline-flex items-center gap-1.5 transition-colors hover:text-ink">
+        <GithubMark size={14} /> Source on GitHub
+      </a>
+      <a href={site.releases} class="transition-colors hover:text-ink">Releases</a>
+      <span>
+        Made by <a href={site.author.url} class="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">@shrihari</a>
+      </span>
+    </div>
+  </div>
+</footer>

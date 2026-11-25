@@ -1,0 +1,99 @@
+---
+// "Messy file names in, clean library out": real examples from the app's
+// identification test suite, cycled one at a time.
+import { ArrowRight } from '@lucide/astro';
+
+const rows = [
+  {
+    file: 'Interstellar.2014.2160p.UHD.BluRay.x265.10bit.HDR.DTS-HD.MA.5.1-SWTYBLZ.mkv',
+    title: 'Interstellar',
+    meta: '2014 · Movie',
+    tags: ['4K', 'HDR'],
+  },
+  { file: 'Heat (1995)/movie.mkv', title: 'Heat', meta: '1995 · Movie', tags: [] },
+  {
+    file: 'Arrival.2016.1080p.BluRay.x264-SPARKS/sparks-arrival-1080p.mkv',
+    title: 'Arrival',
+    meta: '2016 · Movie',
+    tags: ['1080p'],
+  },
+  { file: 'Breaking Bad/Season 1/01 - Pilot.mkv', title: 'Breaking Bad', meta: 'S1 E1 · “Pilot”', tags: [] },
+  { file: 'The.Office.UK.S01E01.mkv', title: 'The Office (UK)', meta: '2001 · S1 E1', tags: [] },
+  { file: 'Dune.1984.1080p.BluRay.x264.mkv', title: 'Dune', meta: '1984 · not the 2021 one', tags: ['1080p'] },
+  {
+    file: '[SubsPlease] Sousou no Frieren - 05 (1080p).mkv',
+    title: 'Frieren: Beyond Journey’s End',
+    meta: 'Episode 5',
+    tags: ['1080p'],
+  },
+];
+---
+
+<div class="filename-demo rounded-[22px] bg-elev p-2 shadow-[0_0_0_0.5px_var(--line-strong),0_20px_50px_-30px_rgb(0_0_0/0.35)]">
+  <ul class="divide-y divide-line">
+    {
+      rows.map((r, i) => (
+        <li
+          class="row grid grid-cols-1 items-center gap-2 rounded-2xl px-4 py-3.5 transition-colors duration-500 md:grid-cols-[minmax(0,1fr)_28px_minmax(0,0.8fr)] md:gap-4"
+          data-active={i === 0 ? '' : undefined}
+        >
+          <code class="truncate font-mono text-[12.5px] text-ink-2 transition-colors duration-500" title={r.file}>
+            {r.file}
+          </code>
+          <ArrowRight
+            size={16}
+            class="arrow hidden text-ink-3 transition-all duration-500 md:block"
+          />
+          <div class="flex min-w-0 items-center gap-2">
+            <span class="truncate text-[14.5px] font-semibold text-ink">{r.title}</span>
+            <span class="shrink-0 text-[12.5px] text-ink-2">{r.meta}</span>
+            {r.tags.map((t) => (
+              <span class="shrink-0 rounded-[5px] bg-ink/[0.06] px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-ink-2">
+                {t}
+              </span>
+            ))}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .row[data-active] {
+    background: color-mix(in oklab, var(--accent) 16%, transparent);
+  }
+  .row[data-active] code {
+    color: var(--ink);
+  }
+  .row[data-active] :global(.arrow) {
+    color: var(--accent-strong);
+    transform: translateX(3px);
+  }
+</style>
+
+<script>
+  // Walk the highlight down the list; pause while the visitor hovers.
+  for (const demo of document.querySelectorAll<HTMLElement>('.filename-demo')) {
+    const rows = [...demo.querySelectorAll<HTMLElement>('.row')];
+    let i = 0;
+    let paused = false;
+    demo.addEventListener('mouseenter', () => (paused = true));
+    demo.addEventListener('mouseleave', () => (paused = false));
+    rows.forEach((r, n) =>
+      r.addEventListener('mouseenter', () => {
+        rows[i].removeAttribute('data-active');
+        i = n;
+        r.setAttribute('data-active', '');
+      }),
+    );
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setInterval(() => {
+        if (paused || document.hidden) return;
+        rows[i].removeAttribute('data-active');
+        i = (i + 1) % rows.length;
+        rows[i].setAttribute('data-active', '');
+      }, 1800);
+    }
+  }
+</script>

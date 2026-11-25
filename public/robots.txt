@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://getmoviemonkey.com/sitemap-index.xml
