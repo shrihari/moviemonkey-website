@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     q: 'Where does the information come from?',
-    a: 'Free, open sources that need no API key: IMDb’s title search, Cinemeta and TVMaze, with artwork from TMDB’s image CDN. Only titles are looked up; your files never leave your disk.',
+    a: 'From The Movie Database (TMDB): titles, posters, backdrops, cast, age ratings and episode guides. TVMaze steps in for shows when TMDB can’t help. You don’t need an account or an API key. Only titles are looked up; your files never leave your disk.',
   },
   {
     q: 'What if it gets something wrong?',
@@ -179,7 +179,7 @@ const faqs = [
     <div class="mt-5 grid gap-x-10 gap-y-3 text-[14.5px] leading-relaxed text-ink-2 sm:grid-cols-3">
       <p><span class="font-semibold text-ink">4K, HDR, Dolby Vision.</span> Read straight from your file names, shown as badges.</p>
       <p><span class="font-semibold text-ink">Editions and splits.</span> Director’s cuts, extended editions and CD1/CD2 files are grouped correctly.</p>
-      <p><span class="font-semibold text-ink">Trailer, IMDb, Finder.</span> One click away from every title.</p>
+      <p><span class="font-semibold text-ink">Trailer, TMDB, IMDb, Finder.</span> One click away from every title.</p>
     </div>
   </section>
 
@@ -251,11 +251,12 @@ const faqs = [
   <section class="mx-auto max-w-[1180px] px-6 pt-24">
     <div class="flex flex-col gap-6 rounded-[22px] bg-stage px-7 py-8 sm:flex-row sm:items-center">
       <div class="flex-1">
-        <h3 class="text-[17px] font-semibold tracking-[-0.01em]">Powered by free, open metadata</h3>
-        <p class="mt-1 text-[14.5px] text-ink-2">No API keys to paste, no accounts to create. If one source is down, the next one takes over.</p>
+        <h3 class="text-[17px] font-semibold tracking-[-0.01em]">Powered by TMDB and TVMaze</h3>
+        <p class="mt-1 text-[14.5px] text-ink-2">Posters, backdrops, cast and episode guides come from TMDB, with TVMaze as a backup for shows. No API keys to paste, no accounts to create.</p>
+        <p class="mt-3 text-[12px] text-ink-3">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
       </div>
       <ul class="flex flex-wrap gap-2 text-[13px] font-medium">
-        {['IMDb search', 'Cinemeta', 'TVMaze', 'TMDB artwork'].map((s) => (
+        {['TMDB', 'TVMaze'].map((s) => (
           <li class="rounded-full bg-elev px-3.5 py-1.5 shadow-[0_0_0_0.5px_var(--line-strong)]">{s}</li>
         ))}
       </ul>
