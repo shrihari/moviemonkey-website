@@ -4,7 +4,8 @@ import Shot from '../components/Shot.astro';
 import FilenameDemo from '../components/FilenameDemo.astro';
 import GithubMark from '../components/GithubMark.astro';
 import { site } from '../site';
-import monkey from '../assets/monkey.svg';
+import { Image } from 'astro:assets';
+import appIcon from '../assets/app-icon.png';
 import {
   ArrowDownToLine,
   Bookmark,
@@ -294,7 +295,7 @@ const faqs = [
         class="pointer-events-none absolute -bottom-48 left-1/2 size-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_203_61/0.3),transparent)] dark:bg-[radial-gradient(closest-side,rgb(255_203_61/0.12),transparent)]"
       >
       </div>
-      <img src={monkey.src} alt="" width="88" height="88" class="relative mx-auto size-[88px] drop-shadow-xl" style="animation: float 6s ease-in-out infinite" />
+      <Image src={appIcon} alt="Movie Monkey app icon" width={104} height={104} densities={[2, 3]} class="relative mx-auto size-[104px] drop-shadow-[0_18px_28px_rgb(122_74_0/0.28)]" style="animation: float 6s ease-in-out infinite" />
       <h2 class="relative mt-8 font-display text-[34px] leading-[1.1] font-semibold tracking-[-0.03em] sm:text-[44px]">
         {site.downloadUrl ? 'Give your movies a home.' : 'Coming soon to your Mac.'}
       </h2>

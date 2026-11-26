@@ -1,5 +1,6 @@
 ---
-import monkey from '../assets/monkey.svg';
+import { Image } from 'astro:assets';
+import appIcon from '../assets/app-icon.png';
 import GithubMark from './GithubMark.astro';
 import { site } from '../site';
 const year = new Date().getFullYear();
@@ -8,7 +9,7 @@ const year = new Date().getFullYear();
 <footer class="border-t border-line">
   <div class="mx-auto flex max-w-[1180px] flex-col gap-6 px-6 py-10 text-[13px] text-ink-2 sm:flex-row sm:items-center">
     <div class="flex items-center gap-2.5">
-      <img src={monkey.src} alt="" width="22" height="22" class="size-[22px] opacity-90" />
+      <Image src={appIcon} alt="" width={22} height={22} densities={[2, 3]} class="size-[22px]" />
       <span class="font-medium text-ink">{site.name}</span>
       <span class="text-ink-3">© {year}</span>
     </div>
