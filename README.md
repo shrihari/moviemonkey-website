@@ -8,9 +8,9 @@ npm run dev       # http://localhost:4321
 npm run build     # static output in dist/
 ```
 
-## When the app ships
+## Downloads
 
-Set `downloadUrl` in `src/site.ts` to the release `.dmg`. Every "Coming soon" button turns into "Download for Mac".
+`downloadUrl` in `src/site.ts` points at `releases/latest/download/Movie-Monkey.dmg`, so the buttons always fetch the newest GitHub release as long as its disk image keeps that name. Nothing on the site needs to change for a new release, except `version` and `softwareVersion` in the same file, which show in the hero and in the search-engine metadata. Setting `downloadUrl` to `null` switches every button back to "Coming soon".
 
 ## Hosting
 
