@@ -12,17 +12,12 @@ npm run build     # static output in dist/
 
 Set `downloadUrl` in `src/site.ts` to the release `.dmg`. Every "Coming soon" button turns into "Download for Mac".
 
-## Moving the domain from GitHub Pages to Vercel
+## Hosting
 
-`master` still holds the old site and still serves getmoviemonkey.com through GitHub Pages. The new site lives on the `v2` branch and is deployed to the Vercel project `moviemonkey-website` (https://moviemonkey-website.vercel.app).
-
-When you're ready:
-
-1. Merge `v2` into `master`.
-2. In Vercel, connect the GitHub repo to the `moviemonkey-website` project so pushes deploy automatically.
-3. In Vercel, add the domains under **Project → Settings → Domains**: `getmoviemonkey.com` and `www.getmoviemonkey.com`.
-4. At your DNS provider, replace the GitHub Pages records with the ones Vercel shows. Vercel issues the HTTPS certificate automatically.
-5. In the GitHub repo, open **Settings → Pages** and turn GitHub Pages off.
+- **Vercel** project `moviemonkey-website`, connected to this repo. Every push to `master` deploys to production. Other branches get preview URLs.
+- **Domain:** `getmoviemonkey.com`, with `www` redirecting to it. DNS is at Namecheap: two `A` records for `@` and a `CNAME` for `www` point at Vercel. The Google mail records there are separate and unrelated to the site.
+- **Analytics:** Vercel Web Analytics (cookie-free) through `@vercel/analytics` in `src/layouts/Base.astro`. Visits show up in the Vercel dashboard under **Analytics**.
+- **Old site:** the original GitHub Pages site is kept on the `v1-legacy` branch. GitHub Pages is turned off.
 
 ## Screenshots
 
