@@ -12,15 +12,15 @@ export const site = {
    * `null` switches the buttons back to "Coming soon".
    */
   downloadUrl: 'https://github.com/shrihari/moviemonkey/releases/latest/download/Movie-Monkey.dmg' as string | null,
-  version: '2.0 alpha',
-  softwareVersion: '2.0.0-alpha.1',
+  version: '2.0 alpha 2',
+  softwareVersion: '2.0.0-alpha.2',
   requirements: 'macOS 13 or later · Apple Silicon and Intel',
   /**
    * Watch on TV is built but not in a release yet. Set to true once a release
    * includes it: the "Coming in the next release" label goes away and the FAQ
    * stops calling it upcoming.
    */
-  watchOnTvReleased: false,
+  watchOnTvReleased: true,
   description:
     'A beautiful, local-first library for the movies and TV shows on your Mac. Drop in a folder; get back posters, artwork, cast and episode guides. Free, open source, no accounts.',
 };
