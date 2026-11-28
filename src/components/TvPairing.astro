@@ -1,0 +1,175 @@
+---
+// A TV showing Movie Monkey's pairing screen, drawn in HTML so it stays sharp
+// at any size. It copies the real screen (src/tv/Pair.tsx in the app): `--u`
+// is 1/120 of the screen's width, like 1rem on the TV, so the sizes below are
+// the screen's own rem values. Swap in a real TV screenshot once there is one.
+import { Image } from 'astro:assets';
+import appIcon from '../assets/app-icon.png';
+
+const typed = ['4', '8', '', ''];
+const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '⌫'];
+---
+
+<figure
+  class="tv"
+  role="img"
+  aria-label="A TV showing Movie Monkey's pairing screen, with a number pad for entering the 4-digit code from Settings on the Mac"
+>
+  <div class="bezel">
+    <div class="screen">
+      <div class="pair">
+        <div class="intro">
+          <Image src={appIcon} alt="" width={96} height={96} densities={[2]} class="icon" />
+          <p class="title">Connect to Movie Monkey</p>
+          <p class="text">
+            On your computer, open Movie Monkey, go to <b>Settings&nbsp;›&nbsp;Watch&nbsp;on&nbsp;TV</b> and choose <b>Pair a TV</b>.
+            Then enter the 4-digit code here.
+          </p>
+          <div class="code">{typed.map((d) => <span>{d}</span>)}</div>
+        </div>
+        <div class="keys">
+          {keys.map((k) => (k ? <span class:list={['key', k === '2' && 'focused']}>{k}</span> : <span />))}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="stand" aria-hidden="true"></div>
+</figure>
+
+<style>
+  .tv {
+    margin: 0;
+    container-type: inline-size;
+  }
+  .bezel {
+    padding: 0.7%;
+    border-radius: 14px;
+    background: linear-gradient(#1b1b1b, #0a0a0a);
+    box-shadow:
+      0 0 0 0.5px rgb(0 0 0 / 0.5),
+      0 30px 60px -24px rgb(0 0 0 / 0.45),
+      0 60px 120px -50px rgb(0 0 0 / 0.35);
+  }
+  /* On a dark page the frame and stand need to be a shade lighter to show. */
+  @media (prefers-color-scheme: dark) {
+    .bezel {
+      background: linear-gradient(#34322f, #1f1e1c);
+      box-shadow:
+        0 0 0 0.5px rgb(255 255 255 / 0.14),
+        0 30px 60px -24px rgb(0 0 0 / 0.8);
+    }
+  }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #0e0d0c;
+  }
+  /* A faint reflection across the glass. */
+  .screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, rgb(255 255 255 / 0.06), transparent 38%);
+    pointer-events: none;
+  }
+  .pair {
+    --u: calc(100cqw / 120);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--u) * 8);
+    padding: 0 calc(var(--u) * 6);
+    color: #f3f1ee;
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+  }
+  .intro {
+    max-width: calc(var(--u) * 40);
+  }
+  .icon {
+    width: calc(var(--u) * 6);
+    height: calc(var(--u) * 6);
+  }
+  .title {
+    margin-top: calc(var(--u) * 2.5);
+    font-size: calc(var(--u) * 3.4);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .text {
+    margin-top: calc(var(--u) * 1.5);
+    font-family: var(--font-sans);
+    font-size: calc(var(--u) * 1.5);
+    line-height: 1.625;
+    color: #b4b0a9;
+  }
+  .text b {
+    color: #f3f1ee;
+  }
+  .code {
+    display: flex;
+    gap: calc(var(--u) * 1);
+    margin-top: calc(var(--u) * 2.5);
+  }
+  .code span,
+  .key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--u);
+    background: #1c1b1a;
+    font-weight: 600;
+  }
+  .code span {
+    width: calc(var(--u) * 5);
+    height: calc(var(--u) * 6);
+    font-size: calc(var(--u) * 3);
+  }
+  .keys {
+    display: grid;
+    grid-template-columns: repeat(3, calc(var(--u) * 6));
+    gap: calc(var(--u) * 1);
+  }
+  .key {
+    height: calc(var(--u) * 6);
+    font-size: calc(var(--u) * 2.2);
+  }
+  /* The key the remote is on. */
+  .key.focused {
+    background: #fff;
+    color: #000;
+    transform: scale(1.1);
+  }
+  .stand {
+    position: relative;
+    margin: 0 auto;
+    width: 3%;
+    height: clamp(10px, 2.6cqw, 26px);
+    background: linear-gradient(90deg, #161616, #2a2a2a 50%, #161616);
+  }
+  .stand::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 900%;
+    height: 7px;
+    translate: -50% 0;
+    border-radius: 6px 6px 3px 3px;
+    background: linear-gradient(#2a2a2a, #121212);
+    box-shadow: 0 10px 18px -6px rgb(0 0 0 / 0.4);
+  }
+  @media (prefers-color-scheme: dark) {
+    .stand {
+      background: linear-gradient(90deg, #262523, #3a3835 50%, #262523);
+    }
+    .stand::after {
+      background: linear-gradient(#3a3835, #232220);
+    }
+  }
+</style>

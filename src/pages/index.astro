@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Shot from '../components/Shot.astro';
 import FilenameDemo from '../components/FilenameDemo.astro';
+import TvPairing from '../components/TvPairing.astro';
 import GithubMark from '../components/GithubMark.astro';
 import { site } from '../site';
 import { Image } from 'astro:assets';
@@ -14,10 +15,13 @@ import {
   Eye,
   FolderDown,
   HardDrive,
+  KeyRound,
   Moon,
   Play,
+  Power,
   ShieldCheck,
   Sparkles,
+  TvMinimalPlay,
   Unplug,
   Wand,
   Feather,
@@ -53,7 +57,9 @@ const faqs = [
   },
   {
     q: 'Does it play videos?',
-    a: 'It hands files to the player you already use, like IINA, VLC, QuickTime or Infuse, and keeps track of what you’ve watched.',
+    a: `On your Mac, it hands files to the player you already use, like IINA, VLC, QuickTime or Infuse, and keeps track of what you’ve watched. ${
+      site.watchOnTvReleased ? 'Watch on TV' : 'The next release adds Watch on TV, which'
+    } plays your library on a TV at home, straight from your Mac.`,
   },
   {
     q: 'Where does the information come from?',
@@ -243,6 +249,71 @@ const faqs = [
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ======================================================== watch on TV -->
+  <section id="tv" class="mx-auto max-w-[1180px] px-6 pt-32">
+    <div class="max-w-[760px]">
+      <p class="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] font-semibold tracking-[0.12em] text-accent-strong uppercase">
+        Watch on your TV
+        {
+          !site.watchOnTvReleased && (
+            <span class="rounded-full bg-elev px-2.5 py-0.5 text-[11.5px] font-semibold tracking-normal text-ink-2 normal-case shadow-[0_0_0_0.5px_var(--line-strong)]">
+              Coming in the next release
+            </span>
+          )
+        }
+      </p>
+      <h2 class="mt-3 font-display text-[36px] leading-[1.08] font-semibold tracking-[-0.03em] text-balance sm:text-[44px]">
+        Your library, on the big screen.{' '}<span class="text-ink-3">Play your movies on the TV, straight from your Mac.</span>
+      </h2>
+      <p class="mt-4 text-[17px] leading-relaxed text-ink-2">
+        Pair your TV once and it gets a version of your library made for the remote, with the same posters, shows and
+        episode guides. Files play straight from your Mac over your home network. There’s no media server to set up and
+        no account, and only the TVs you pair can connect.
+      </p>
+    </div>
+    <div class="reveal relative mt-10 overflow-hidden rounded-[28px] bg-stage px-5 pt-10 pb-12 sm:px-16 sm:pt-16 sm:pb-16">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute -top-48 left-1/2 size-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_203_61/0.24),transparent)] dark:bg-[radial-gradient(closest-side,rgb(255_203_61/0.08),transparent)]"
+      >
+      </div>
+      <div class="relative mx-auto max-w-[880px]">
+        <TvPairing />
+      </div>
+    </div>
+    <div class="mt-6 grid gap-4 sm:grid-cols-3">
+      {
+        [
+          { icon: Power, t: 'Switch it on', d: 'In Settings › Watch on TV. Movie Monkey can keep sharing from the menu bar after you close its window.' },
+          { icon: KeyRound, t: 'Pair your TV', d: 'Open the address Movie Monkey shows in your TV’s web browser, then enter the 4-digit code. Each TV pairs once.' },
+          { icon: TvMinimalPlay, t: 'Grab the remote', d: 'Browse home rows, movies and shows, down to seasons and episodes, then press play.' },
+        ].map((s) => (
+          <div class="reveal rounded-[20px] bg-stage p-6">
+            <span class="flex size-9 items-center justify-center rounded-xl bg-accent/30 text-accent-strong">
+              <s.icon size={18} />
+            </span>
+            <h3 class="mt-4 text-[17px] font-semibold tracking-[-0.01em]">{s.t}</h3>
+            <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-2">{s.d}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-8 grid gap-x-10 gap-y-3 text-[14.5px] leading-relaxed text-ink-2 sm:grid-cols-3">
+      <p>
+        <span class="font-semibold text-ink">Awkward files, handled.</span> Files your TV can play stream as they are. For the
+        rest, Movie Monkey converts only what the TV can’t take, on the fly. If the TV just can’t play a DTS soundtrack, only
+        the sound gets converted.
+      </p>
+      <p><span class="font-semibold text-ink">Subtitles and audio tracks.</span> Subtitle files next to the video or inside it, and a choice of audio tracks.</p>
+      <p><span class="font-semibold text-ink">Picks up where you left off.</span> Resumes where you stopped, marks things watched when they end, and plays the next episode on its own.</p>
+    </div>
+    <p class="mt-6 max-w-[760px] text-[12.5px] leading-relaxed text-ink-3">
+      Works in your TV’s web browser. An app for LG TVs is on the way, with Android TV and Google TV after that.
+      <a href="/tv/" class="text-ink-2 underline decoration-line-strong underline-offset-4 transition-colors hover:text-ink hover:decoration-ink">See the TV screens with sample films</a>
+      (arrow keys and Enter, like a remote).
+    </p>
   </section>
 
   <!-- ============================================================== bento -->

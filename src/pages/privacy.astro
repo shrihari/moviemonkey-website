@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+
+const updated = '28 November 2026';
+const contact = 'gfxindia@gmail.com';
+---
+
+<Base title={`Privacy · ${site.name}`} description="What Movie Monkey does with your data: nothing is collected about you.">
+  <article class="mx-auto max-w-[720px] px-6 pt-16 pb-28 sm:pt-24">
+    <p class="text-[13px] font-semibold tracking-[0.12em] text-accent-strong uppercase">Privacy</p>
+    <h1 class="mt-3 font-display text-[36px] leading-[1.08] font-semibold tracking-[-0.03em] text-balance sm:text-[44px]">
+      Nothing is collected about you.
+    </h1>
+    <p class="mt-4 text-[15px] text-ink-3">Last updated {updated}</p>
+
+    <div class="prose-mm mt-10">
+      <p>
+        Movie Monkey is free and has no accounts, no ads and no analytics in its apps. This page says exactly what
+        leaves your devices and why. It covers the Mac app, the TV app (including the LG TV app) and this website.
+      </p>
+
+      <h2>The Mac app</h2>
+      <p>
+        Your library stays on your Mac. That means the folders you add, what Movie Monkey recognises in them, what
+        you've watched and where you stopped, all kept in Movie Monkey's own folder on your Mac.
+      </p>
+      <p>
+        To recognise a film or show, Movie Monkey sends the name and year it reads from a file name (for example
+        “Heat 1995”) to <a href="https://www.themoviedb.org/privacy-policy">TMDB</a> and{' '}
+        <a href="https://www.tvmaze.com/site/privacy">TVMaze</a>, and downloads posters and artwork from them. Like
+        any website you visit, they see your Mac's internet address when it asks. Nothing else about you or your
+        files is sent. If you choose to watch a trailer, it opens on YouTube in your browser.
+      </p>
+
+      <h2>Watch on TV</h2>
+      <p>
+        When you switch on Watch on TV, your Mac shares your library on your home network, and only with TVs you
+        pair using a code shown on your Mac. Videos go straight from your Mac to your TV over your home network. They
+        don't go through the internet, and they don't go through us.
+      </p>
+
+      <h2>The TV app</h2>
+      <p>
+        The TV app, including Movie Monkey for LG TVs, talks only to Movie Monkey on your computer, over your home
+        network. To find your computer, it asks your TV for its address on your home network and then checks the
+        other addresses on that network for Movie Monkey. That check stays inside your home network; nothing about it
+        is stored or sent anywhere else. The app keeps your computer's address and its pairing key on your TV, so it
+        can reconnect.
+      </p>
+      <p>
+        <b>Sample films.</b> If you choose to try the sample films, the app loads them from this website, streams
+        the films from the <a href="https://archive.org/about/terms.php">Internet Archive</a> (archive.org) and
+        their artwork from TMDB. Those services see your TV's internet address when it asks. Where you stopped in
+        them and what you've marked as watched are kept on your TV only.
+      </p>
+
+      <h2>This website</h2>
+      <p>
+        This website is hosted by Vercel and uses{' '}
+        <a href="https://vercel.com/docs/analytics/privacy-policy">Vercel Web Analytics</a> to count page visits. It
+        uses no cookies and doesn't identify you or follow you to other sites.
+      </p>
+
+      <h2>Children</h2>
+      <p>Movie Monkey doesn't collect anything about anyone, children included.</p>
+
+      <h2>Changes</h2>
+      <p>If this ever changes, this page will say so, with a new date at the top.</p>
+
+      <h2>Questions</h2>
+      <p>
+        Write to <a href={`mailto:${contact}`}>{contact}</a>, or open an issue on{' '}
+        <a href={`${site.github}/issues`}>GitHub</a>.
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .prose-mm {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+  .prose-mm :global(p + p) {
+    margin-top: 1em;
+  }
+  .prose-mm :global(h2) {
+    margin-top: 2.2em;
+    margin-bottom: 0.6em;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .prose-mm :global(a) {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 4px;
+  }
+  .prose-mm :global(a:hover) {
+    text-decoration-color: var(--ink);
+  }
+  .prose-mm :global(b) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+</style>
